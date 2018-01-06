@@ -511,7 +511,7 @@ int BinScoreTree<T>::getNodeScoreSum(ScoreTreeNode<T> *t, int num_of_top) {
     ScoreTreeNode<T>* cur_node = t;
 
     //look for the first node whose subtree is not larger
-    while(cur_node != NULL && cur_node->right != NULL && cur_node->subtree_size > num_of_top){
+    while(cur_node->right != NULL && cur_node->subtree_size > num_of_top){
         cur_node = cur_node->right;
     }
 
