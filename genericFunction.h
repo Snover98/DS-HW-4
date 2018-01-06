@@ -1,0 +1,23 @@
+//
+// Created by oded on 04/01/18.
+//
+
+#ifndef DS_WET_4_GENERICFUNCTION_H
+#define DS_WET_4_GENERICFUNCTION_H
+
+template<class T>
+class Func{
+public:
+    virtual void operator()(T& t){
+        return;
+    }
+};
+
+template<class T>
+class Compare{
+public:
+    virtual int operator()(T& t1, T& t2){
+        return 0;
+    };
+};
+#endif //DS_WET_4_GENERICFUNCTION_H
