@@ -27,7 +27,7 @@ public:
 };
 
 template<class T>
-class CompGladsByLevel : public CompGladsByID<T>{
+class CompGladsByScore : public CompGladsByID<T>{
 public:
     /*****************COMPARISON************************
      * Compares the the inputted Gladiators by their Levels.
@@ -40,11 +40,11 @@ public:
      * if g1.level == g2.level and g1.id == g2.id, 0
      **************************************************/
     int operator()(T &g1, T& g2) {
-        if(g1.getLevel() == g2.getLevel()){
+        if(g1.getScore() == g2.getScore()){
             return CompGladsByID<T>::operator()(g1, g2);
         }
 
-        return (g1.getLevel() < g2.getLevel())? -1: 1;
+        return (g1.getScore() < g2.getScore())? -1: 1;
     }
 };
 

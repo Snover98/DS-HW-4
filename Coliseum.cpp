@@ -10,7 +10,6 @@ Coliseum::Coliseum(int* trainingGroupsIDs, int numOfGroups) {
 
     trainingHeap = new MinHeap(trainingGroupsIDs,numOfGroups);
 
-    CompGladsByLevel<Gladiator>* comp_lvl = new CompGladsByLevel<Gladiator>();
     trainingTable = new HashTable<TrainingGroup>(numOfGroups);
 }
 
@@ -127,7 +126,6 @@ void Coliseum::updateIdHeap() {
         trainingHeap->delMin();
     }
 }
-
 
 void Coliseum::getMinGroup(int* trainingGroup) {
     //check if a group exists in the heap of not conquered groups

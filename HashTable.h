@@ -72,7 +72,7 @@ T* HashTable<T>::findElement(int hash) {
     }
 
     //find the element in the cell that has the unique hash value
-    List<T>::Iterator found = cell.find(Equals<T>(hash));
+    typename List<T>::Iterator found = cell.find(Equals<T>(hash));
 
     //if the iterator points to the cell's list end, the element is not in the table
     if(found == cell.end()){
@@ -125,7 +125,7 @@ void HashTable<T>::reHash() {
     //for each cell in the old table
     for(int i=0; i<old_size; i++){
         //for each element in the cell
-        for(List<T>::Iterator it = old_table_array[i].begin(); it != old_table_array[i].end(); it++){
+        for(typename List<T>::Iterator it = old_table_array[i].begin(); it != old_table_array[i].end(); it++){
             //add the element to the new table
             addElement(*it);
         }
@@ -134,10 +134,6 @@ void HashTable<T>::reHash() {
     //after moving everything to the new array, destroy the old one
     delete[] old_table_array;
 }
-
-
-
-
 
 
 #endif //DS_WET_4_HASHTABLE_H

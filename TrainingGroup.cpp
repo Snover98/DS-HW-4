@@ -6,8 +6,11 @@
 //create a new training group with the inputted ID, with 0 glads that has not lost
 TrainingGroup::TrainingGroup(int ID) : ID(ID), numOfGladiators(0), isConquered(false), gladiators(NULL) {
     //create the splay rank tree for the group
-    CompGladsByLevel<Gladiator>* comp_lv = new CompGladsByLevel<Gladiator>();
-    gladiators = new SplayRankTree<Gladiator>(comp_lv);
+    CompGladsByScore<Gladiator>* comp_scr = new CompGladsByScore<Gladiator>();
+    /***************************************/
+    /**TODO: Change back to SplayRankTree **/
+    /***************************************/
+    gladiators = new BinScoreTree<Gladiator>(comp_scr);
 }
 
 TrainingGroup::~TrainingGroup() {

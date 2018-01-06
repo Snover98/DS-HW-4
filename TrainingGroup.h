@@ -10,12 +10,16 @@
 #include "Gladiator.h"
 #include "CompGlads.h"
 #include "Hashable.h"
+#include "binScoreTree.h"
 
 class TrainingGroup : public Hashable{
 private:
     int ID;
     int numOfGladiators;
-    SplayRankTree<Gladiator>* gladiators;
+    /***************************************/
+    /**TODO: Change back to SplayRankTree **/
+    /***************************************/
+    BinScoreTree<Gladiator>* gladiators;
     bool isConquered;
 
 public:

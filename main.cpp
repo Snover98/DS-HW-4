@@ -51,8 +51,7 @@ int main() {
     heap1.insert(90);
     heap1.insert(80);
     heap1.insert(85);
-    heap1.del_min();
-    heap1.print_heap();
+
 /**
     //print_arr(arr2, 10);
     sift_down(2,10,arr2);

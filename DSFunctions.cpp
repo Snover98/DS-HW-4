@@ -106,7 +106,7 @@ StatusType getMinTrainingGroup (void* DS, int* trainingGroup) {
 void quit(void** DS) {
     if(DS==NULL || *DS==NULL) return;
 
-    Coliseum* coliseum = static_cast<Coliseum*>(DS);
+    Coliseum* coliseum = static_cast<Coliseum*>(*DS);
 
     delete coliseum;
     *DS = NULL;
