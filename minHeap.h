@@ -47,7 +47,7 @@ public:
 
     //for debugging
     void printHeap() {
-        for(int i=1;i<=numOfInputs;i++) {
+        for(int i=1;i<=num_of_elements;i++) {
             int x = heap[i];
             cout << heap[i] << " ";
         }
