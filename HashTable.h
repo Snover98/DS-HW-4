@@ -7,6 +7,7 @@
 
 #include "linkedList.h"
 #include "Hashable.h"
+#include "funcsLib.h"
 
 //all used T must have the method int hash()
 template<typename T>
@@ -21,13 +22,12 @@ private:
 
     void reHash();
 
-    int closestPowerOfTwo(int n);
     int hashFunc(int hash);
 
 public:
     //make a table with a size that's the closest power of 10 to n
     HashTable(int n):size(n), table(NULL), num_of_elements(0){
-        table = new List<T>*[closestPowerOfTwo(size)];
+        table = new List<T>*[funcsLib::closestPowerOfTwo(size)];
     }
 
     T* findElement(int hash);
@@ -48,16 +48,6 @@ public:
 
 };
 
-//find closet (and bigger) power of 2
-template<typename T>
-int HashTable<T>::closestPowerOfTwo(int n) {
-    int closest = 1;
-    while(closest < n){
-        closest *= 2;
-    }
-
-    return closest;
-}
 
 template<typename T>
 int HashTable<T>::hashFunc(int hash){

@@ -23,5 +23,6 @@ set(SOURCE_FILES main.cpp
         library2.h
         HashTable.h
         Hashable.h
+        funcsLib.h
         )
 add_executable(DS_Wet_4 ${SOURCE_FILES})
