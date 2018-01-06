@@ -515,10 +515,10 @@ int BinScoreTree<T>::getNodeScoreSum(ScoreTreeNode<T> *t, int num_of_top) {
         cur_node = cur_node->right;
     }
 
-    //take care of NULL node (should not happen in current usage)
-    if(cur_node == NULL){
-        return 0;
-    }
+//    //take care of NULL node (should not happen in current usage)
+//    if(cur_node == NULL){
+//        return 0;
+//    }
 
     //if the current node has the exact number we need, we can just return it's score sum
     if(cur_node->subtree_size == num_of_top){
