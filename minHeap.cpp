@@ -110,3 +110,10 @@ void MinHeap::resizeHeap(int newSize) {
 bool MinHeap::isEmpty() {
     return (num_of_elements == 0);
 }
+
+void MinHeap::printHeap() {
+    for(int i=1;i<=num_of_elements;i++) {
+        int x = heap[i];
+        cout << heap[i] << " ";
+    }
+}

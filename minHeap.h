@@ -46,12 +46,7 @@ public:
     bool isEmpty();
 
     //for debugging
-    void printHeap() {
-        for(int i=1;i<=num_of_elements;i++) {
-            int x = heap[i];
-            cout << heap[i] << " ";
-        }
-    }
+    void printHeap();
 };
 
 #endif //DS_WET_4_MINHEAP_H
