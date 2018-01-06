@@ -2,19 +2,21 @@
 // Created by oded on 05/01/18.
 //
 #include "minHeap.h"
+#include "funcsLib.h"
 
-MinHeap::MinHeap(int* arr, int n) : heap(new int[2*n+1]), heapSize(2*n+1), numOfInputs(n) {
-    make_heap(arr,n);
+MinHeap::MinHeap(int* arr, int n) : heap(NULL), heap_size(funcsLib::closestPowerOfTwo(n)), num_of_elements(n) {
+    heap = new int[heap_size];
+    makeHeap(arr,n);
 }
 MinHeap::~MinHeap() {
     delete[] heap;
 }
 
-int MinHeap::find_min() {
+int MinHeap::getMin() {
     return heap[1];
 }
 
-void MinHeap::sift_up(int last) {
+void MinHeap::siftUp(int last) {
     int inserted = heap[last];
     int r = last;
 
@@ -24,7 +26,7 @@ void MinHeap::sift_up(int last) {
     }
 }
 
-void MinHeap::sift_down(int first, int last) {
+void MinHeap::siftDown(int first, int last) {
     for (int r = first; r <= last/2;){
         if (2*r == last){ /* r has one child at 2*r  */
             if (heap[r] > heap[2*r]) {
@@ -52,54 +54,59 @@ void MinHeap::swap(int* i,int* j) {
     *j=n;
 }
 
-void MinHeap::make_heap(int* arr, int n) {
+void MinHeap::makeHeap(int* arr, int n) {
     //we first insert all the given values to the heap array
     for(int i=0;i<n;i++) {
-        heap[i+1]=arr[i];
+        heap[i+1] = arr[i];
     }
 
     //then we sift up from the lowest subtrees to the top
     for(int i=n/2;i>0;i--) {
-        sift_down(i,n);
+        siftDown(i,n);
     }
 }
 
 void MinHeap::insert(int x) {
     //the new value is inserted to the end of the heap array
-    heap[++numOfInputs] = x;
+    heap[++num_of_elements] = x;
 
     //the new value is then sifted up to its right location in the heap
-    sift_up(numOfInputs);
+    siftUp(num_of_elements);
 
     //we resize the heap if it became full
-    if(numOfInputs==heapSize) {
-        resize_heap(heapSize*2);
+    if(num_of_elements==heap_size) {
+        resizeHeap(heap_size*2);
     }
 }
 
-void MinHeap::del_min() {
+void MinHeap::delMin() {
     //swapping head of heap (one to delete) with the end of the heap array
-    swap(heap+1,heap+numOfInputs);
-    --numOfInputs; //"deleting" the old head of heap (by lowering counter)
+    swap(heap+1,heap+num_of_elements);
+    --num_of_elements; //"deleting" the old head of heap (by lowering counter)
 
     //sift down the new head to its right position in the heap
-    sift_down(1,numOfInputs);
+    siftDown(1,num_of_elements);
 
-    if(numOfInputs<=(heapSize/4)) {
-        resize_heap(heapSize/2);
+    //resize if we have too much empty space
+    if(num_of_elements<=(heap_size/4)) {
+        resizeHeap(heap_size/2);
     }
 }
 
-void MinHeap::resize_heap(int newSize) {
+void MinHeap::resizeHeap(int newSize) {
     int* new_heap = new int[newSize];
 
     //copying the old heap to the new heap
-    for(int i=1;i<=numOfInputs;i++) {
+    for(int i=1;i<=num_of_elements;i++) {
         new_heap[i] = heap[i];
     }
 
     //deleting old heap and storing new pointer to current heap
     delete[] heap;
     heap = new_heap;
-    heapSize=newSize; //updating the heap size
+    heap_size = newSize; //updating the heap size
+}
+
+bool MinHeap::isEmpty() {
+    return (num_of_elements == 0);
 }
