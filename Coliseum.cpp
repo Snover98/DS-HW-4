@@ -11,7 +11,7 @@ Coliseum::Coliseum(int* trainingGroupsIDs, int numOfGroups) {
     trainingHeap = new MinHeap(trainingGroupsIDs,numOfGroups);
 
     CompGladsByLevel<Gladiator>* comp_lvl = new CompGladsByLevel<Gladiator>();
-    trainingTable = new HashTable<TrainingGroup>(trainingGroupsIDs,numOfGroups,comp_lvl);
+    trainingTable = new HashTable<TrainingGroup>(numOfGroups);
 }
 
 Coliseum::~Coliseum() {
@@ -23,14 +23,17 @@ Coliseum::~Coliseum() {
 
 void Coliseum::addTrainingGroupToColiseum(int trainingGroupID) {
     //check if the training group is already in the coliseum
-    TrainingGroup* group = trainingTable->find(trainingGroupID);
+    TrainingGroup* group = trainingTable->findElement(trainingGroupID);
 
     if(group != NULL) {
         throw TrainingGroupAlreadyIn();
     }
 
+    //create the new group
+    TrainingGroup* new_group = new TrainingGroup(trainingGroupID);
+
     //add the new training group to the table
-    trainingTable->addElement(trainingGroupID);
+    trainingTable->addElement(*new_group);
 
     //add the new training group to the heap
     trainingHeap->insert(trainingGroupID);
@@ -38,7 +41,7 @@ void Coliseum::addTrainingGroupToColiseum(int trainingGroupID) {
 
 void Coliseum::addGladiatorToColiseum(int trainingGroup,int gladiatorID,int score) {
     //check if the training group exists
-    TrainingGroup* group = trainingTable->find(trainingGroup);
+    TrainingGroup* group = trainingTable->findElement(trainingGroup);
 
     if(group == NULL) {
         throw TrainingGroupNotFound();
@@ -54,75 +57,83 @@ void Coliseum::addGladiatorToColiseum(int trainingGroup,int gladiatorID,int scor
     }
 
     //add the new gladiator to its group
-    group->insertGladiator(gladiatorID,score);
+    group->insertGladiator(*new_gladiator);
 
     //add the new gladiator to the tree of all gladiators
     gladiators->insert(*new_gladiator);
 }
 
-void Coliseum::groupsFight(int trainingGroup1,int k1,int trainingGroup2,int k2) {
+void Coliseum::groupsFight(int trainingGroup1, int k1, int trainingGroup2, int k2) {
     //check if the training groups exists
-    TrainingGroup* group1 = trainingTable->find(trainingGroup1);
-    TrainingGroup* group2 = trainingTable->find(trainingGroup2);
+    TrainingGroup* group1 = trainingTable->findElement(trainingGroup1);
+    TrainingGroup* group2 = trainingTable->findElement(trainingGroup2);
 
     if(group1 == NULL || group2 == NULL) {
         throw TrainingGroupNotFound();
     }
 
     //check if we have enough gladiators in each group in order to fight
-    int numOfGlads1 = group1->getNumOfGladiators();
-    int numOfGlads2 = group2->getNumOfGladiators();
-
-    if(numOfGlads1 < k1 || numOfGlads2 < k2) {
+    if(group1->getNumOfGladiators() < k1 || group2->getNumOfGladiators() < k2) {
         throw NotEnoughGladiatorsToFight();
     }
 
     //check if one of the groups (or both) lost in a fight already
     //(and thus cant fight anymore)
-    if(group1->isLost() || group2->isLost()) {
+    if(group1->hasLost() || group2->hasLost()) {
         throw TrainingGroupLost();
     }
 
+    //check who the loser group is
+    TrainingGroup& loser = findLoserGroup(*group1, k1, *group2, k2);
+
+    //update it's state
+    loser.lostBattle();
+
+    //update the id heap
+    updateIdHeap();
+
+}
+
+TrainingGroup& Coliseum::findLoserGroup(TrainingGroup &group1, int k1, TrainingGroup &group2, int k2) {
     //get sums of the top k1/k2 gladiators for each group
-    int groupBiggerSum1 = group1->getBiggerSum(k1);
-    int groupBiggerSum2 = group1->getBiggerSum(k2);
+    int groupBiggerSum1 = group1.getScoreSum(k1);
+    int groupBiggerSum2 = group2.getScoreSum(k2);
 
-    int minGroupInHeap = trainingHeap->find_min();
+    //set loser group (defaults to group1, but will be updated later)
+    TrainingGroup& loser = group1;
 
-    /**check who won and update the loosing group.
-    Also, if the looser was also the minimal in the Heap,
-    we delete the minimal from the heap **/
+    //check who won
     if(groupBiggerSum1 > groupBiggerSum2) {
-        group2->lost();
-        if(minGroupInHeap==trainingGroup2) {
-            trainingHeap->del_min();
-        }
+        loser= group2;
     } else if(groupBiggerSum1 < groupBiggerSum2) {
-        group1->lost();
-        if(minGroupInHeap==trainingGroup1) {
-            trainingHeap->del_min();
-        }
+        loser = group1;
     } else { //if both groups had the same sum, we need to choose the group
         // with bigger ID as the looser
-        if(trainingGroup1 > trainingGroup2) {
-            group1->lost();
-            if(minGroupInHeap==trainingGroup1) {
-                trainingHeap->del_min();
-            }
+        if (group1.getID() > group2.getID()) {
+            loser = group1;
         } else {
-            group2->lost();
-            if(minGroupInHeap==trainingGroup2) {
-                trainingHeap->del_min();
-            }
+            loser = group2;
         }
     }
+
+    return loser;
 }
+
+void Coliseum::updateIdHeap() {
+    //make sure that the minimum of the heap was not defeated
+    //as long as the heap is not empty and the training group whose id is the minimal one was defeated
+    while(!trainingHeap->isEmpty() && trainingTable->findElement(trainingHeap->getMin())->hasLost()){
+        //delete the minimal id of its group was defeated
+        trainingHeap->delMin();
+    }
+}
+
 
 void Coliseum::getMinGroup(int* trainingGroup) {
     //check if a group exists in the heap of not conquered groups
     if(trainingHeap->isEmpty()) {
         throw ColiseumIsEmpty();
     } else { //put the minimal group inside the given pointer
-        *trainingGroup = trainingHeap->find_min();
+        *trainingGroup = trainingHeap->getMin();
     }
 }

@@ -10,10 +10,19 @@
 #include "TrainingGroup.h"
 #include "splayTree.h"
 #include "Exceptions.h"
+#include "HashTable.h"
 
 using namespace DSExceptions;
 
 class Coliseum {
+private:
+    MinHeap* trainingHeap;
+    HashTable<TrainingGroup>* trainingTable;
+    SplayTree<Gladiator>* gladiators;
+
+    TrainingGroup& findLoserGroup(TrainingGroup& group1, int k1, TrainingGroup& group2, int k2);
+    void updateIdHeap();
+
 public:
     //inits the coliseum (the whole system)
     Coliseum(int* trainingGroupsIDs, int numOfGroups);
@@ -32,10 +41,6 @@ public:
 
     //returns the minimal group ID in the coliseum that did no lose in any fight
     void getMinGroup(int* trainingGroup);
-private:
-    MinHeap* trainingHeap;
-    HashTable<TrainingGroup>* trainingTable;
-    SplayTree<Gladiator>* gladiators;
 };
 
 
