@@ -16,6 +16,7 @@ TrainingGroup::~TrainingGroup() {
 /**************NOT FINISHED**********************/
 //insert the gladiator to the score tree
 void TrainingGroup::insertGladiator(Gladiator& glad) {
+    ++numOfGladiators;
     gladiators->insert(glad);
 }
 
