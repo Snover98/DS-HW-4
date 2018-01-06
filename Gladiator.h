@@ -7,11 +7,13 @@
 
 
 class Gladiator {
-public:
-    Gladiator(int gladiatorID);
-    int getID();
 private:
     int ID;
+    int score;
+public:
+    Gladiator(int gladiatorID, int score);
+    int getID();
+    int getScore();
 };
 
 
