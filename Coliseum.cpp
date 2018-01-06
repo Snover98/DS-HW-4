@@ -86,7 +86,7 @@ void Coliseum::groupsFight(int trainingGroup1, int k1, int trainingGroup2, int k
     //check who the loser group is
     TrainingGroup& loser = findLoserGroup(*group1, k1, *group2, k2);
 
-    //update it's state
+    //update its state
     loser.lostBattle();
 
     //update the id heap
