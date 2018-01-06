@@ -26,8 +26,8 @@ private:
 
 public:
     //make a table with a size that's the closest power of 10 to n
-    HashTable(int n):size(n), table(NULL), num_of_elements(0){
-        table = new List<T>[funcsLib::closestPowerOfTwo(size)];
+    HashTable(int n):size(funcsLib::closestPowerOfTwo(n)), table(NULL), num_of_elements(0){
+        table = new List<T>[size];
     }
 
     ~HashTable();
@@ -81,7 +81,7 @@ T* HashTable<T>::findElement(int hash) {
     }
 
     //otherwise, the correct element was found, so return it
-    return *found;
+    return &(*found);
 }
 
 //find an element
