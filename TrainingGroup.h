@@ -9,8 +9,9 @@
 #include <clocale>
 #include "Gladiator.h"
 #include "CompGlads.h"
+#include "Hashable.h"
 
-class TrainingGroup {
+class TrainingGroup : public Hashable{
 private:
     int ID;
     int numOfGladiators;
@@ -22,11 +23,19 @@ public:
 
     ~TrainingGroup();
 
-    void insertGladiator(int gladiatorID, int score);
+    void insertGladiator(Gladiator& glad);
 
-    bool isLost();
+    bool hasLost();
 
     int getNumOfGladiators();
+
+    int getID();
+
+    int hash();
+
+    void lostBattle();
+
+    int getScoreSum(int num_of_top);
 
 
 };

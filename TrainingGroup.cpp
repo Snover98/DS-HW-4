@@ -3,7 +3,9 @@
 //
 
 #include "TrainingGroup.h"
+//create a new training group with the inputted ID, with 0 glads that has not lost
 TrainingGroup::TrainingGroup(int ID) : ID(ID), numOfGladiators(0), isConquered(false), gladiators(NULL) {
+    //create the splay rank tree for the group
     CompGladsByLevel<Gladiator>* comp_lv = new CompGladsByLevel<Gladiator>();
     gladiators = new SplayRankTree<Gladiator>(comp_lv);
 }
@@ -12,18 +14,26 @@ TrainingGroup::~TrainingGroup() {
     delete gladiators;
 }
 /**************NOT FINISHED**********************/
-void TrainingGroup::insertGladiator(int gladiatorID, int score) {
-    Gladiator* new_gladiator = new Gladiator(gladiatorID);
-    gladiators->insert(new_gladiator,score);
-    /**************NOT FINISHED**********************/
-    /**************NOT FINISHED**********************/
-    /**************NOT FINISHED**********************/
+void TrainingGroup::insertGladiator(Gladiator& glad) {
+
 }
 
-bool TrainingGroup::isLost() {
+bool TrainingGroup::hasLost() {
     return isConquered;
 }
 
 int TrainingGroup::getNumOfGladiators() {
     return numOfGladiators;
+}
+
+int TrainingGroup::getID(){
+    return ID;
+}
+
+int TrainingGroup::hash(){
+    return getID();
+}
+
+void TrainingGroup::lostBattle() {
+    isConquered = true;
 }
