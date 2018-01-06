@@ -22,5 +22,6 @@ set(SOURCE_FILES main.cpp
         TrainingGroup.cpp
         library2.h
         HashTable.h
+        Hashable.h
         )
 add_executable(DS_Wet_4 ${SOURCE_FILES})

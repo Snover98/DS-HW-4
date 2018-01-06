@@ -8,9 +8,26 @@
 class Hashable{
     Hashable();
 
+    virtual bool operator==(const Hashable& h){
+        return true;
+    }
+
     virtual int hash(){
         return 0;
     }
+};
+
+template <typename T>
+class Equals{
+private:
+    int hash;
+public:
+    Equals(int h):hash(h){}
+
+    bool operator()(T& t){
+        return (t.hash() == hash);
+    }
+
 };
 
 
