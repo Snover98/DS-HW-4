@@ -4,7 +4,7 @@
 #include "minHeap.h"
 #include "funcsLib.h"
 
-MinHeap::MinHeap(int* arr, int n) : heap(NULL), heap_size(funcsLib::closestPowerOfTwo(n)), num_of_elements(n) {
+MinHeap::MinHeap(int* arr, int n) : heap(NULL), heap_size(funcsLib::closestPowerOfTwo(n+1)), num_of_elements(n) {
     heap = new int[heap_size];
     makeHeap(arr,n);
 }
