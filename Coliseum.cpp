@@ -123,7 +123,7 @@ void Coliseum::updateIdHeap() {
     //make sure that the minimum of the heap was not defeated
     //as long as the heap is not empty and the training group whose id is the minimal one was defeated
     while(!trainingHeap->isEmpty() && trainingTable->findElement(trainingHeap->getMin())->hasLost()){
-        //delete the minimal id of its group was defeated
+        //delete the minimal id if its group was defeated
         trainingHeap->delMin();
     }
 }
