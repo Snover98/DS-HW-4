@@ -24,6 +24,7 @@ set(SOURCE_FILES main.cpp
         HashTable.h
         Hashable.h
         funcsLib.h
+        funcsLib.cpp
         binScoreTree.h
         )
 add_executable(DS_Wet_4 ${SOURCE_FILES})

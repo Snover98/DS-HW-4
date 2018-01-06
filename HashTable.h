@@ -14,7 +14,7 @@ template<typename T>
 class HashTable{
 private:
     //the array having the table, each cell has a list of elements
-    List<T>** table;
+    List<T>* table;
     //the size of the table. always a power of 2
     int size;
     //the number of elements in the table. we will rehash if it's equal to the size
@@ -27,8 +27,10 @@ private:
 public:
     //make a table with a size that's the closest power of 10 to n
     HashTable(int n):size(n), table(NULL), num_of_elements(0){
-        table = new List<T>*[funcsLib::closestPowerOfTwo(size)];
+        table = new List<T>[funcsLib::closestPowerOfTwo(size)];
     }
+
+    ~HashTable();
 
     T* findElement(int hash);
     T* findElement(T& info);
@@ -47,7 +49,10 @@ public:
 
 
 };
-
+template<typename T>
+HashTable<T>::~HashTable(){
+    delete[] table;
+}
 
 template<typename T>
 int HashTable<T>::hashFunc(int hash){
@@ -59,18 +64,18 @@ int HashTable<T>::hashFunc(int hash){
 template<typename T>
 T* HashTable<T>::findElement(int hash) {
     //find the correct cell for the element
-    List<T>* cell = table[hashFunc(hash)];
+    List<T>& cell = table[hashFunc(hash)];
 
     //if there are no elements in the cell, return NULL
-    if(cell->getSize() == 0){
+    if(cell.getSize() == 0){
         return NULL;
     }
 
     //find the element in the cell that has the unique hash value
-    List<T>::Iterator found = cell->find(Equals<T>(hash));
+    List<T>::Iterator found = cell.find(Equals<T>(hash));
 
     //if the iterator points to the cell's list end, the element is not in the table
-    if(found == cell->end()){
+    if(found == cell.end()){
         //if the element is not in the table, return NULL
         return NULL;
     }
@@ -87,14 +92,15 @@ T* HashTable<T>::findElement(T &info) {
     return findElement(info.hash());
 }
 
-//add an elelment to the table
+//add an element to the table
 template<typename T>
 void HashTable<T>::addElement(T &e) {
     //find the correct cell for the element
-    List<T>* cell = table[hashFunc(e.hash())];
+    List<T>& cell = table[hashFunc(e.hash())];
+
 
     //insert the element to the end of the cell's list
-    cell->insert(&e);
+    cell.insert(&e);
 
     //update number of elements
     ++num_of_elements;
@@ -109,17 +115,17 @@ void HashTable<T>::addElement(T &e) {
 template<typename T>
 void HashTable<T>::reHash() {
     //save the old table array and the old size
-    List<T>** old_table_array = table;
+    List<T>* old_table_array = table;
     int old_size = size;
 
     //increase the size by 2 times and create a new array
     size *= 2;
-    table = new List<T>*[size];
+    table = new List<T>[size];
 
     //for each cell in the old table
     for(int i=0; i<old_size; i++){
         //for each element in the cell
-        for(List<T>::Iterator it = old_table_array[i]->begin(); it != old_table_array[i]->end(); it++){
+        for(List<T>::Iterator it = old_table_array[i].begin(); it != old_table_array[i].end(); it++){
             //add the element to the new table
             addElement(*it);
         }
