@@ -24,7 +24,6 @@ public:
 
         return (g1.getID() < g2.getID())? -1: 1;
     }
-    //works the same, just with an id and a gladiator
 };
 
 template<class T>
@@ -36,13 +35,13 @@ public:
      * return values:
      * if g1.level < g2.level, -1
      * if g1.level > g2.level, 1
-     * if g1.level == g2.level and g1.id < g2.id, 1
-     * if g1.level == g2.level and g1.id > g2.id, -1
+     * if g1.level == g2.level and g1.id < g2.id, -1
+     * if g1.level == g2.level and g1.id > g2.id, 1
      * if g1.level == g2.level and g1.id == g2.id, 0
      **************************************************/
     int operator()(T &g1, T& g2) {
         if(g1.getLevel() == g2.getLevel()){
-            return (-1)*CompGladsByID<T>::operator()(g1, g2);
+            return CompGladsByID<T>::operator()(g1, g2);
         }
 
         return (g1.getLevel() < g2.getLevel())? -1: 1;

@@ -14,8 +14,9 @@ TrainingGroup::~TrainingGroup() {
     delete gladiators;
 }
 /**************NOT FINISHED**********************/
+//insert the gladiator to the score tree
 void TrainingGroup::insertGladiator(Gladiator& glad) {
-
+    gladiators->insert(glad);
 }
 
 bool TrainingGroup::hasLost() {
