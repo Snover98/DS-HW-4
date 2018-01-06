@@ -19,6 +19,10 @@ void TrainingGroup::insertGladiator(Gladiator& glad) {
     gladiators->insert(glad);
 }
 
+int TrainingGroup::getScoreSum(int num_of_top) {
+    return gladiators->getScoreSum(num_of_top);
+}
+
 bool TrainingGroup::hasLost() {
     return isConquered;
 }

@@ -42,6 +42,8 @@ protected:
     //update score_sum and subtree_size all the way up
     void updateParents(ScoreTreeNode<T>* t, bool is_added);
 
+    int getNodeScoreSum(ScoreTreeNode<T>* t, int num_of_top);
+
     //remove a node
     void removeNode(ScoreTreeNode<T>* t);
 
@@ -80,6 +82,9 @@ public:
 
     //insert node with relevant info. returns NULL if there it already exists
     virtual void insert(T& info);
+
+    //get the score sum of the num_of_top rightmost nodes
+    int getScoreSum(int num_of_top);
 
     //removes the node with relevant info. returns false if it doesn't exist, true otherwise.
     virtual bool remove(T& info);
@@ -454,6 +459,7 @@ void BinScoreTree<T>::insertNode(ScoreTreeNode<T> *t, ScoreTreeNode<T> *start){
         }
     }
 }
+
 //update the node's parent when adding/removing it
 //is_added==true when we are adding, and is_added==false when we are removing
 template<class T>
@@ -480,6 +486,62 @@ void BinScoreTree<T>::updateParents(ScoreTreeNode<T>* t, bool is_added){
         //move to the next parent
         cur_parent = cur_parent->parent;
     }
+}
+
+template<class T>
+int BinScoreTree<T>::getScoreSum(int num_of_top) {
+    //if the tree is empty or not large enough, return 0
+    if(root == NULL || root->subtree_size < num_of_top){
+        return 0;
+    }
+
+    //use the recursive function
+    return getNodeScoreSum(root, num_of_top);
+}
+
+template<class T>
+int BinScoreTree<T>::getNodeScoreSum(ScoreTreeNode<T> *t, int num_of_top) {
+    //in case we need no more nodes, or if the starting one is NULL
+    if(num_of_top == 0 || t == NULL){
+        return 0;
+    }
+
+
+    //find the rightmost node whose subtree has at least num_of_top nodes
+    ScoreTreeNode<T>* cur_node = t;
+
+    //look for the first node whose subtree is not larger
+    while(cur_node != NULL && cur_node->right != NULL && cur_node->subtree_size > num_of_top){
+        cur_node = cur_node->right;
+    }
+
+    //take care of NULL node (should not happen in current usage)
+    if(cur_node == NULL){
+        return 0;
+    }
+
+    //if the current node has the exact number we need, we can just return it's score sum
+    if(cur_node->subtree_size == num_of_top){
+        return cur_node->score_sum;
+    }
+
+    //if the found node's subtree is too small, move up
+    if(cur_node->subtree_size < num_of_top){
+        cur_node = cur_node->parent;
+    }
+
+    //if the current node's subtree is too large
+    //the right sum will be the score sum of the right subtree - 0 if there is no right child
+    int right_sum = 0;
+    int right_size = 0;
+    //if there is a right son, update accordingly
+    if((cur_node->right != NULL)){
+        right_sum = cur_node->right->score_sum;
+        right_size = cur_node->right->subtree_size;
+    }
+
+    //find the needed remaining nodes in the left child
+    return right_sum + cur_node->score_sum + getNodeScoreSum(cur_node->left, num_of_top - right_size - 1);
 }
 
 template<class T>
