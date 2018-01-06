@@ -48,7 +48,7 @@ void Coliseum::addGladiatorToColiseum(int trainingGroup,int gladiatorID,int scor
     }
 
     //check if the gladiator exists
-    Gladiator* new_gladiator = new Gladiator(gladiatorID);
+    Gladiator* new_gladiator = new Gladiator(gladiatorID, score);
 
     Gladiator* found_gladiator = gladiators->find(*new_gladiator);
     if(found_gladiator != NULL && found_gladiator->getID()==gladiatorID) {
