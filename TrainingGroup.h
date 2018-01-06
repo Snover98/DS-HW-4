@@ -11,38 +11,24 @@
 #include "CompGlads.h"
 
 class TrainingGroup {
-public:
-    TrainingGroup(int ID) : ID(ID), numOfGladiators(0), isConquered(false), gladiators(NULL) {
-        CompGladsByLevel<Gladiator>* comp_lv = new CompGladsByLevel<Gladiator>();
-        gladiators = new SplayRankTree<Gladiator>(comp_lv);
-    }
-
-    ~TrainingGroup() {
-        delete gladiators;
-    }
-
-    /**************NOT FINISHED**********************/
-    void insertGladiator(int gladiatorID, int score) {
-        Gladiator* new_gladiator = new Gladiator(gladiatorID);
-        gladiators->insert(new_gladiator,score);
-        /**************NOT FINISHED**********************/
-        /**************NOT FINISHED**********************/
-        /**************NOT FINISHED**********************/
-    }
-
-    bool isLost() {
-        return isConquered;
-    }
-
-    int getNumOfGladiators() {
-        return numOfGladiators;
-    }
-
 private:
     int ID;
     int numOfGladiators;
     SplayRankTree<Gladiator>* gladiators;
     bool isConquered;
+
+public:
+    TrainingGroup(int ID);
+
+    ~TrainingGroup();
+
+    void insertGladiator(int gladiatorID, int score);
+
+    bool isLost();
+
+    int getNumOfGladiators();
+
+
 };
 
 
