@@ -77,7 +77,7 @@ T* HashTable<T>::findElement(int hash) {
     }
 
     //find the element in the cell that has the unique hash value
-    List<T>::Iterator found = cell->find(Equals(hash));
+    List<T>::Iterator found = cell->find(Equals<T>(hash));
 
     //if the iterator points to the cell's list end, the element is not in the table
     if(found == cell->end()){

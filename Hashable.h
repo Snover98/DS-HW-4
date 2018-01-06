@@ -6,11 +6,8 @@
 #define DS_WET_4_HASHABLE_H
 
 class Hashable{
+public:
     Hashable();
-
-    virtual bool operator==(const Hashable& h){
-        return true;
-    }
 
     virtual int hash(){
         return 0;
