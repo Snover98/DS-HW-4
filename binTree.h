@@ -8,14 +8,7 @@
 
 #include "genericFunction.h"
 #include "TreeNode.h"
-
-template <typename T>
-void swap(T &n1, T &n2) // Note the &
-{
-    T temp=n1; // Note use the type T
-    n1=n2;
-    n2=temp;
-}
+#include "funcsLib.h"
 
 template<class T>
 class BinTree {
@@ -307,7 +300,7 @@ void BinTree<T>::switchNodes(TreeNode<T> *t1, TreeNode<T> *t2) {
     if(t2->left != NULL){
         t2->left->parent = t1;
     }
-    swap(t1->left, t2->left);
+    funcsLib::swap(t1->left, t2->left);
 
     //switch right children
     if(t1->right != NULL){
@@ -316,7 +309,7 @@ void BinTree<T>::switchNodes(TreeNode<T> *t1, TreeNode<T> *t2) {
     if(t2->right != NULL){
         t2->right->parent = t1;
     }
-    swap(t1->right, t2->right);
+    funcsLib::swap(t1->right, t2->right);
 
     //switch parents
     if(t1->parent != NULL){
@@ -333,7 +326,7 @@ void BinTree<T>::switchNodes(TreeNode<T> *t1, TreeNode<T> *t2) {
             t2->parent->left = t1;
         }
     }
-    swap(t1->parent, t2->parent);
+    funcsLib::swap(t1->parent, t2->parent);
 
     //if one of them is the root, change the root
     if(root == t1){
