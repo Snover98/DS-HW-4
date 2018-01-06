@@ -541,7 +541,7 @@ int BinScoreTree<T>::getNodeScoreSum(ScoreTreeNode<T> *t, int num_of_top) {
     }
 
     //find the needed remaining nodes in the left child
-    return right_sum + cur_node->score_sum + getNodeScoreSum(cur_node->left, num_of_top - right_size - 1);
+    return right_sum + cur_node->info.getScore() + getNodeScoreSum(cur_node->left, num_of_top - right_size - 1);
 }
 
 template<class T>
