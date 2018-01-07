@@ -43,7 +43,33 @@ public:
         left = NULL;
         right = NULL;
     }
+
+    void recalcFields();
 };
 
+//recalculate score_sum and subtree_size
+template<class T>
+void ScoreTreeNode<T>::recalcFields() {
+    int right_sum = 0;
+    int left_sum = 0;
+    int right_subtr_size = 0;
+    int left_subtr_size = 0;
+
+    //if there is a right son, take it's fields
+    if(right != NULL){
+        right_sum = right->score_sum;
+        right_subtr_size = right->subtree_size;
+    }
+
+    //if there is a left son, take it's fields
+    if(left != NULL){
+        left_sum = left->score_sum;
+        left_subtr_size = left->subtree_size;
+    }
+
+    //recalculate the fields
+    score_sum = info.getScore() + right_sum + left_sum;
+    subtree_size = 1 + right_subtr_size + left_subtr_size;
+}
 
 #endif //DS_WET_4_TREENODE_H
