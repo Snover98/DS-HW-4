@@ -129,6 +129,8 @@ void HashTable<T>::reHash() {
             //add the element to the new table
             addElement(*it);
         }
+        //clear the list in the cell, so that deleting it won't effect the info that was moved into the new array
+        old_table_array[i].clearList();
     }
 
     //after moving everything to the new array, destroy the old one

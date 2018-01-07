@@ -115,7 +115,7 @@ public:
         }
 
     private:
-        friend class List;
+        friend class List<T>;
         typename List<T>::Node *_element;
         const List<T> *_list;
     };
@@ -171,6 +171,9 @@ public:
      * remove.
      */
     void remove(List<T>::Iterator iterator);
+
+    //makes sure that no info is saved in the list, so that deletion will not delete info that is also in other places
+    void clearList();
 private:
     class Node {
 
@@ -440,6 +443,15 @@ void List<T>::swap(List<T>::Node& A, List<T>::Node& B) {
     B._data = tmp._data;
     tmp._data = NULL;
     tmp.isolate();
+}
+
+template <class T>
+void List<T>::clearList() {
+    //for each node in the list
+    for(Iterator it = begin(); it != end(); it++){
+        //make sure it has no data
+        it._element->_data = NULL;
+    }
 }
 
 template <class T>
