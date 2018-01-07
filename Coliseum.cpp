@@ -14,10 +14,10 @@ Coliseum::Coliseum(int* trainingGroupsIDs, int numOfGroups) {
 }
 
 Coliseum::~Coliseum() {
-    gladiators->removeAllAndDeleteInfo();
-    delete gladiators;
     delete trainingHeap;
     delete trainingTable;
+    gladiators->removeAllAndDeleteInfo();
+    delete gladiators;
 }
 
 void Coliseum::addTrainingGroupToColiseum(int trainingGroupID) {
