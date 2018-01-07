@@ -10,7 +10,7 @@ TrainingGroup::TrainingGroup(int ID) : ID(ID), numOfGladiators(0), isConquered(f
     /***************************************/
     /**TODO: Change back to SplayRankTree **/
     /***************************************/
-    gladiators = new BinScoreTree<Gladiator>(comp_scr);
+    gladiators = new SplayScoreTree<Gladiator>(comp_scr);
 }
 
 TrainingGroup::~TrainingGroup() {

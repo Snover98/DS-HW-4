@@ -10,7 +10,7 @@
 #include "Gladiator.h"
 #include "CompGlads.h"
 #include "Hashable.h"
-#include "binScoreTree.h"
+#include "splayScoreTree.h"
 
 class TrainingGroup : public Hashable{
 private:
@@ -19,7 +19,7 @@ private:
     /***************************************/
     /**TODO: Change back to SplayRankTree **/
     /***************************************/
-    BinScoreTree<Gladiator>* gladiators;
+    SplayScoreTree<Gladiator>* gladiators;
     bool isConquered;
 
 public:
