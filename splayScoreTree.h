@@ -155,6 +155,10 @@ void SplayScoreTree<T>::zig(ScoreTreeNode<T>* x){
     //make x the former parent's parent
     y->parent = x;
     x->right = y;
+
+    //update the additional fields from lowest node to highest node
+    y->recalcFields();
+    x->recalcFields();
 }
 
 //when x's parent is the root and x is a right son
@@ -174,6 +178,10 @@ void SplayScoreTree<T>::zag(ScoreTreeNode<T>* x){
     //make x the former parent's parent
     y->parent = x;
     x->left = y;
+
+    //update the additional fields from lowest node to highest node
+    y->recalcFields();
+    x->recalcFields();
 }
 
 //x is the left son of a left son
@@ -211,6 +219,11 @@ void SplayScoreTree<T>::zigZig(ScoreTreeNode<T>* x){
     //make the former grandparent the former parent's right son
     z->parent = y;
     y->right = z;
+
+    //update the additional fields from lowest node to highest node
+    z->recalcFields();
+    y->recalcFields();
+    x->recalcFields();
 }
 
 //x is the right son of a right son
@@ -247,6 +260,11 @@ void SplayScoreTree<T>::zagZag(ScoreTreeNode<T>* x){
     //make the former grandparent the former parent's left son
     z->parent = y;
     y->left = z;
+
+    //update the additional fields from lowest node to highest node
+    z->recalcFields();
+    y->recalcFields();
+    x->recalcFields();
 }
 
 //x is the right son of a left son
@@ -283,6 +301,11 @@ void SplayScoreTree<T>::zigZag(ScoreTreeNode<T>* x){
     //make the former grandparent into x's right son
     z->parent = x;
     x->right = z;
+
+    //update the additional fields from lowest node to highest node
+    z->recalcFields();
+    y->recalcFields();
+    x->recalcFields();
 }
 
 //x is the left son of a right son
@@ -319,6 +342,11 @@ void SplayScoreTree<T>::zagZig(ScoreTreeNode<T>* x){
     //make the former grandparent into x's left son
     z->parent = x;
     x->left = z;
+
+    //update the additional fields from lowest node to highest node
+    z->recalcFields();
+    y->recalcFields();
+    x->recalcFields();
 }
 
 //the splay - moving a node to the root
