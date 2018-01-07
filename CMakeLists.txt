@@ -27,5 +27,5 @@ set(SOURCE_FILES main.cpp
         funcsLib.cpp
         binScoreTree.h
         funcsLib.cpp
-        )
+        splayScoreTree.h)
 add_executable(DS_Wet_4 ${SOURCE_FILES})
