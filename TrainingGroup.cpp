@@ -4,7 +4,7 @@
 
 #include "TrainingGroup.h"
 //create a new training group with the inputted ID, with 0 glads that has not lost
-TrainingGroup::TrainingGroup(int ID) : ID(ID), numOfGladiators(0), isConquered(false), gladiators(NULL) {
+TrainingGroup::TrainingGroup(int ID) :Hashable(), ID(ID), numOfGladiators(0), isConquered(false), gladiators(NULL) {
     //create the splay rank tree for the group
     CompGladsByScore<Gladiator>* comp_scr = new CompGladsByScore<Gladiator>();
     /***************************************/

@@ -7,7 +7,7 @@
 
 class Hashable{
 public:
-    Hashable();
+    Hashable(){}
 
     virtual int hash(){
         return 0;
@@ -17,11 +17,11 @@ public:
 template <typename T>
 class Equals{
 private:
-    int hash;
+    const int hash;
 public:
     Equals(int h):hash(h){}
 
-    bool operator()(T& t){
+    const bool operator()(T& t) const{
         return (t.hash() == hash);
     }
 
