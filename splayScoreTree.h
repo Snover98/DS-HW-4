@@ -5,12 +5,8 @@
 #ifndef DS_WET_4_SPLAYSCORETREE_H
 #define DS_WET_4_SPLAYSCORETREE_H
 
-//
-// Created by oded on 04/01/18.
-//
 
-#ifndef DS_WET_4_SPLAYTREE_H
-#define DS_WET_4_SPLAYTREE_H
+
 
 #include "binScoreTree.h"
 #include "TreeNode.h"
@@ -376,10 +372,6 @@ void SplayScoreTree<T>::splay(ScoreTreeNode<T>* t){
     //update the root
     this->root = t;
 }
-
-#endif //DS_WET_4_SPLAYTREE_H
-
-
 
 
 #endif //DS_WET_4_SPLAYSCORETREE_H
