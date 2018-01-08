@@ -20,7 +20,7 @@ private:
     HashTable<TrainingGroup>* trainingTable;
     SplayTree<Gladiator>* gladiators;
 
-    TrainingGroup& findLoserGroup(TrainingGroup& group1, int k1, TrainingGroup& group2, int k2);
+    TrainingGroup* findLoserGroup(TrainingGroup* group1, int k1, TrainingGroup* group2, int k2);
     void updateIdHeap();
     void initTrainingGroups(int* trainingGroupsIDs, int numOfGroups);
 
