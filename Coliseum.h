@@ -22,6 +22,7 @@ private:
 
     TrainingGroup& findLoserGroup(TrainingGroup& group1, int k1, TrainingGroup& group2, int k2);
     void updateIdHeap();
+    void initTrainingGroups(int* trainingGroupsIDs, int numOfGroups);
 
 public:
     //inits the coliseum (the whole system)

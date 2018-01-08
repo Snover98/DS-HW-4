@@ -5,12 +5,18 @@
 #include "Coliseum.h"
 
 Coliseum::Coliseum(int* trainingGroupsIDs, int numOfGroups) {
+    //create a tree for all gladiators
     CompGladsByID<Gladiator>* comp_id = new CompGladsByID<Gladiator>();
     gladiators = new SplayTree<Gladiator>(comp_id);
 
+    //create a minHeap with all of the ids
     trainingHeap = new MinHeap(trainingGroupsIDs,numOfGroups);
 
+    //create a hash table for the training groups
     trainingTable = new HashTable<TrainingGroup>(numOfGroups);
+
+    //insert empty groups with the ids in the array
+    initTrainingGroups(trainingGroupsIDs, numOfGroups);
 }
 
 Coliseum::~Coliseum() {
@@ -133,5 +139,17 @@ void Coliseum::getMinGroup(int* trainingGroup) {
         throw ColiseumIsEmpty();
     } else { //put the minimal group inside the given pointer
         *trainingGroup = trainingHeap->getMin();
+    }
+}
+
+//add training groups with the ids in the array
+void Coliseum::initTrainingGroups(int *trainingGroupsIDs, int numOfGroups) {
+    //for each id in the array
+    for(int i = 0; i < numOfGroups; i++){
+        //create a group with the id
+        TrainingGroup* group = new TrainingGroup(trainingGroupsIDs[i]);
+
+        //add the group to the hash table
+        trainingTable->addElement(*group);
     }
 }
