@@ -3,7 +3,9 @@ project(DS_Wet_4)
 
 set(CMAKE_CXX_STANDARD 98)
 
-set(SOURCE_FILES main.cpp
+set(SOURCE_FILES
+        testBarak.cpp
+        #main.cpp
         linkedList.h
         Coliseum.h
         Coliseum.cpp
