@@ -4,8 +4,9 @@ project(DS_Wet_4)
 set(CMAKE_CXX_STANDARD 98)
 
 set(SOURCE_FILES
-        testBarak.cpp
-        #main.cpp
+#        testBarak.cpp
+#        main.cpp
+        main2.cpp
         linkedList.h
         Coliseum.h
         Coliseum.cpp
@@ -29,5 +30,6 @@ set(SOURCE_FILES
         funcsLib.cpp
         binScoreTree.h
         funcsLib.cpp
-        splayScoreTree.h)
+        splayScoreTree.h
+        )
 add_executable(DS_Wet_4 ${SOURCE_FILES})
