@@ -13,6 +13,13 @@ void* init(int n, int* trainingGroupsIDs) {
     if(n<2 || trainingGroupsIDs==NULL)
         return NULL;
 
+    //check for negative IDs
+    for(int i=0; i<n ;i++){
+        if(trainingGroupsIDs[i] < 0){
+            return NULL;
+        }
+    }
+
     void* DS;
 
     try {
