@@ -7,7 +7,7 @@
 //find closet (and bigger) power of 2
 int funcsLib::closestPowerOfTwo(int n) {
     int closest = 1;
-    while(closest < n){
+    while(closest <= n){
         closest *= 2;
     }
 
