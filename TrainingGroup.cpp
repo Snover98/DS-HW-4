@@ -7,16 +7,13 @@
 TrainingGroup::TrainingGroup(int ID) :Hashable(), ID(ID), numOfGladiators(0), isConquered(false), gladiators(NULL) {
     //create the splay rank tree for the group
     CompGladsByScore<Gladiator>* comp_scr = new CompGladsByScore<Gladiator>();
-    /***************************************/
-    /**TODO: Change back to SplayRankTree **/
-    /***************************************/
     gladiators = new SplayScoreTree<Gladiator>(comp_scr);
 }
 
 TrainingGroup::~TrainingGroup() {
     delete gladiators;
 }
-/**************NOT FINISHED**********************/
+
 //insert the gladiator to the score tree
 void TrainingGroup::insertGladiator(Gladiator& glad) {
     ++numOfGladiators;
