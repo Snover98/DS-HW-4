@@ -23,7 +23,7 @@ private:
     bool isConquered;
 
 public:
-    TrainingGroup(int ID = 0);
+    TrainingGroup(int ID = -1);
 
     ~TrainingGroup();
 
