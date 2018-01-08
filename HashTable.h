@@ -121,6 +121,8 @@ void HashTable<T>::reHash() {
     //increase the size by 2 times and create a new array
     size *= 2;
     table = new List<T>[size];
+    //make it 0, will be updated to correct one when adding
+    num_of_elements = 0;
 
     //for each cell in the old table
     for(int i=0; i<old_size; i++){
