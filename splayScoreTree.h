@@ -37,16 +37,16 @@ public:
     T* find(T& info);
 
     //find node with highest info value the tree. returns NULL if there is none
-    T* findMax();
+//    T* findMax();
 
     //find node with lowest info value the tree. returns NULL if there is none
-    T* findMin();
+//    T* findMin();
 
     //insert node with relevant info. returns NULL if there it already exists
     void insert(T& info);
 
     //removes the node with relevant info. returns false if it doesn't exist, true otherwise.
-    bool remove(T& info);
+//    bool remove(T& info);
 //
 //    //join two trees, where every node in tree2 has a higher info value than those in this tree
 //    void join(SplayScoreTree tree2);
@@ -77,39 +77,39 @@ T* SplayScoreTree<T>::find(T& info){
     return NULL;
 }
 
-template<class T>
-T* SplayScoreTree<T>::findMax() {
-    //return NULL if the tree is empty
-    if(this->isEmpty()){
-        return NULL;
-    }
-
-    //find the max node
-    ScoreTreeNode<T>* max_node = this->findMaxNode(this->root);
-
-    //move the max node to the root
-    splay(max_node);
-
-    //return the max info
-    return &(max_node->info);
-}
-
-template<class T>
-T* SplayScoreTree<T>::findMin() {
-    //return NULL if the tree is empty
-    if(this->isEmpty()){
-        return NULL;
-    }
-
-    //find the min node
-    ScoreTreeNode<T>* min_node = this->findMinNode(this->root);
-
-    //move the min node to the root
-    splay(min_node);
-
-    //return the min info
-    return &(min_node->info);
-}
+//template<class T>
+//T* SplayScoreTree<T>::findMax() {
+//    //return NULL if the tree is empty
+//    if(this->isEmpty()){
+//        return NULL;
+//    }
+//
+//    //find the max node
+//    ScoreTreeNode<T>* max_node = this->findMaxNode(this->root);
+//
+//    //move the max node to the root
+//    splay(max_node);
+//
+//    //return the max info
+//    return &(max_node->info);
+//}
+//
+//template<class T>
+//T* SplayScoreTree<T>::findMin() {
+//    //return NULL if the tree is empty
+//    if(this->isEmpty()){
+//        return NULL;
+//    }
+//
+//    //find the min node
+//    ScoreTreeNode<T>* min_node = this->findMinNode(this->root);
+//
+//    //move the min node to the root
+//    splay(min_node);
+//
+//    //return the min info
+//    return &(min_node->info);
+//}
 
 template<class T>
 void SplayScoreTree<T>::insert(T &info) {
@@ -117,20 +117,20 @@ void SplayScoreTree<T>::insert(T &info) {
     splay(this->insertInfo(info));
 }
 
-template<class T>
-bool SplayScoreTree<T>::remove(T& info){
-    //if the tree is empty, the info is not there
-    if(this->isEmpty()){
-        return false;
-    }
-
-    //find the closest node and splay it
-    ScoreTreeNode<T>* closest = this->findNode(info, this->root);
-    splay(closest);
-
-    //now that the closest is in the root, remove normally
-    return BinScoreTree<T>::remove(info);
-}
+//template<class T>
+//bool SplayScoreTree<T>::remove(T& info){
+//    //if the tree is empty, the info is not there
+//    if(this->isEmpty()){
+//        return false;
+//    }
+//
+//    //find the closest node and splay it
+//    ScoreTreeNode<T>* closest = this->findNode(info, this->root);
+//    splay(closest);
+//
+//    //now that the closest is in the root, remove normally
+//    return BinScoreTree<T>::remove(info);
+//}
 
 //when t's parent is the root and t is a left son
 template<class T>

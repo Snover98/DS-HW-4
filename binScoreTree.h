@@ -23,7 +23,7 @@ protected:
     |* CLASS INNER FUNCTIONS *|
     \* * * * * * * * * * * * */
     //switch the info of two nodes
-    void switchNodes(ScoreTreeNode<T>* t1, ScoreTreeNode<T>* t2);
+//    void switchNodes(ScoreTreeNode<T>* t1, ScoreTreeNode<T>* t2);
 
     //find the node with the inputted info. returns the closest node if the info is not in the tree
     ScoreTreeNode<T>* findNode(T& info, ScoreTreeNode<T>* start);
@@ -45,7 +45,7 @@ protected:
     int getNodeScoreSum(ScoreTreeNode<T>* t, int num_of_top);
 
     //remove a node
-    void removeNode(ScoreTreeNode<T>* t);
+//    void removeNode(ScoreTreeNode<T>* t);
 
     //removing all nodes + deleting all inner info
     void removeAllNodesAndDeleteInfo(ScoreTreeNode<T>* p);
@@ -54,13 +54,13 @@ protected:
     void removeAllNodes(ScoreTreeNode<T>* p);
 
     //the recursive functions that run a function recursively in a certain order (regarding all the orders)
-    void recursiveInorder(ScoreTreeNode<T>* p, Func<T>& func);
+//    void recursiveInorder(ScoreTreeNode<T>* p, Func<T>& func);
 
-    void recursivePreorder(ScoreTreeNode<T>* p, Func<T>& func);
+//    void recursivePreorder(ScoreTreeNode<T>* p, Func<T>& func);
 
-    void recursivePostorder(ScoreTreeNode<T>* p, Func<T>& func);
+//    void recursivePostorder(ScoreTreeNode<T>* p, Func<T>& func);
 
-    void recursiveInverseOrder(ScoreTreeNode<T>* p, Func<T>& func);
+//    void recursiveInverseOrder(ScoreTreeNode<T>* p, Func<T>& func);
 
 public:
     //normal constructor
@@ -75,10 +75,10 @@ public:
     virtual T* find(T& info);
 
     //find node with highest info value the tree. returns NULL if there is none
-    virtual T* findMax();
+//    virtual T* findMax();
 
     //find node with lowest info value the tree. returns NULL if there is none
-    virtual T* findMin();
+//    virtual T* findMin();
 
     //insert node with relevant info. returns NULL if there it already exists
     virtual void insert(T& info);
@@ -87,7 +87,7 @@ public:
     int getScoreSum(int num_of_top);
 
     //removes the node with relevant info. returns false if it doesn't exist, true otherwise.
-    virtual bool remove(T& info);
+//    virtual bool remove(T& info);
 
     //remove all nodes from binary tree
     void removeAll();
@@ -98,13 +98,13 @@ public:
 
 
     //different orders to run a function on the tree's nodes
-    void Inorder(Func<T>& func);
+//    void Inorder(Func<T>& func);
 
-    void Preorder(Func<T>& func);
+//    void Preorder(Func<T>& func);
 
-    void Postorder(Func<T>& func);
+//    void Postorder(Func<T>& func);
 
-    void InverseOrder(Func<T>& func);
+//    void InverseOrder(Func<T>& func);
 };
 
 template<class T>
@@ -132,23 +132,23 @@ T* BinScoreTree<T>::find(T& info) {
     return NULL;
 }
 
-template<class T>
-T* BinScoreTree<T>::findMax() {
-    //check if the tree is empty
-    if(isEmpty()){
-        return NULL;
-    }
-    return &(findMaxNode(root)->info);
-}
+//template<class T>
+//T* BinScoreTree<T>::findMax() {
+//    //check if the tree is empty
+//    if(isEmpty()){
+//        return NULL;
+//    }
+//    return &(findMaxNode(root)->info);
+//}
 
-template<class T>
-T* BinScoreTree<T>::findMin() {
-    //check if the tree is empty
-    if(isEmpty()){
-        return NULL;
-    }
-    return &(findMinNode(root)->info);
-}
+//template<class T>
+//T* BinScoreTree<T>::findMin() {
+//    //check if the tree is empty
+//    if(isEmpty()){
+//        return NULL;
+//    }
+//    return &(findMinNode(root)->info);
+//}
 
 template<class T>
 void BinScoreTree<T>::insert(T& info) {
@@ -156,25 +156,25 @@ void BinScoreTree<T>::insert(T& info) {
     insertInfo(info);
 }
 
-template<class T>
-bool BinScoreTree<T>::remove(T& info) {
-    //the info cannot be in the tree if it's empty
-    if(isEmpty()) {
-        return false;
-    }
-
-    //find the node
-    ScoreTreeNode<T>* t = findNode(info, root);
-
-    //if the info is not in the tree
-    if(comp(info, t->info) != 0){
-        return false;
-    }
-
-    //remove t
-    removeNode(t);
-    return true;
-}
+//template<class T>
+//bool BinScoreTree<T>::remove(T& info) {
+//    //the info cannot be in the tree if it's empty
+//    if(isEmpty()) {
+//        return false;
+//    }
+//
+//    //find the node
+//    ScoreTreeNode<T>* t = findNode(info, root);
+//
+//    //if the info is not in the tree
+//    if(comp(info, t->info) != 0){
+//        return false;
+//    }
+//
+//    //remove t
+//    removeNode(t);
+//    return true;
+//}
 
 template<class T>
 void BinScoreTree<T>::removeAll() {
@@ -221,155 +221,155 @@ void BinScoreTree<T>::removeAllNodesAndDeleteInfo(ScoreTreeNode<T>* p) {
     delete p;
 }
 
-template<class T>
-void BinScoreTree<T>::Inorder(Func<T>& func) {
-    //use the recursive function
-    recursiveInorder(root, func);
-}
-
-template<class T>
-void BinScoreTree<T>::recursiveInorder(ScoreTreeNode<T>* p, Func<T>& func) {
-    //check for NULL pointer
-    if (p == NULL){
-        return;
-    }
-
-    //do for the left, then this, then the right
-    recursiveInorder(p->left, func);
-    func(p->info);
-    recursiveInorder(p->right, func);
-}
-
-template<class T>
-void BinScoreTree<T>::Postorder(Func<T>& func) {
-    //use the recursive function
-    recursivePostorder(root, func);
-}
-
-template<class T>
-void BinScoreTree<T>::recursivePostorder(ScoreTreeNode<T>* p, Func<T>& func) {
-    //check for NULL pointer
-    if (p == NULL){
-        return;
-    }
-
-    //do for the left, then the right, then this
-    recursivePostorder(p->left, func);
-    recursivePostorder(p->right, func);
-    func(p->info);
-}
-
-template<class T>
-void BinScoreTree<T>::Preorder(Func<T>& func) {
-    //use the recursive function
-    recursivePreorder(root, func);
-}
-
-template<class T>
-void BinScoreTree<T>::recursivePreorder(ScoreTreeNode<T>* p, Func<T>& func) {
-    //check for NULL pointer
-    if (p == NULL){
-        return;
-    }
-
-    //do for this, then the left, then the right,
-    func(p->info);
-
-    recursivePreorder(p->left, func);
-
-    recursivePreorder(p->right, func);
-}
-
-template<class T>
-void BinScoreTree<T>::InverseOrder(Func<T>& func){
-    //use the recursive function
-    recursiveInverseOrder(root, func);
-}
-
-template<class T>
-void BinScoreTree<T>::recursiveInverseOrder(ScoreTreeNode<T>* p, Func<T>& func) {
-    //check for NULL pointer
-    if (p == NULL){
-        return;
-    }
-
-    //do for the right, then this, then the left
-    recursiveInverseOrder(p->right, func);
-    func(p->info);
-    recursiveInverseOrder(p->left, func);
-}
-
-template<class T>
-void BinScoreTree<T>::switchNodes(ScoreTreeNode<T> *t1, ScoreTreeNode<T> *t2) {
-    //switch left children
-    if(t1->left != NULL){
-        //update with removal and then switch
-        updateParents(t1->left, false);
-        t1->left->parent = t2;
-
-        //now update for the new parents
-        updateParents(t1->left, true);
-    }
-    if(t2->left != NULL){
-        //update with removal and then switch
-        updateParents(t2->left, false);
-        t2->left->parent = t1;
-
-        //now update for the new parents
-        updateParents(t2->left, true);
-    }
-    funcsLib::swap(t1->left, t2->left);
-
-    //switch right children
-    if(t1->right != NULL){
-        //update with removal and then switch
-        updateParents(t1->right, false);
-        t1->right->parent = t2;
-
-        //now update for the new parents
-        updateParents(t1->right, true);
-    }
-    if(t2->right != NULL){
-        //update with removal and then switch
-        updateParents(t2->right, false);
-        t2->right->parent = t1;
-
-        //now update for the new parents
-        updateParents(t2->right, true);
-    }
-    funcsLib::swap(t1->right, t2->right);
-
-
-    //update with removal and then switch
-    updateParents(t1, false);
-    updateParents(t2, false);
-    //switch parents
-    if(t1->parent != NULL){
-        if(t1->parent->right == t1){
-            t1->parent->right = t2;
-        } else{
-            t1->parent->left = t2;
-        }
-    }
-    if(t2->parent != NULL){
-        if(t2->parent->right == t2){
-            t2->parent->right = t1;
-        } else{
-            t2->parent->left = t1;
-        }
-    }
-    funcsLib::swap(t1->parent, t2->parent);
-    //now update for the new parents
-    updateParents(t1, true);
-    updateParents(t2, true);
-
-    //if one of them is the root, change the root
-    if(root == t1){
-        root = t2;
-    } else if(root == t2){
-        root = t1;
-    }
-}
+//template<class T>
+//void BinScoreTree<T>::Inorder(Func<T>& func) {
+//    //use the recursive function
+//    recursiveInorder(root, func);
+//}
+//
+//template<class T>
+//void BinScoreTree<T>::recursiveInorder(ScoreTreeNode<T>* p, Func<T>& func) {
+//    //check for NULL pointer
+//    if (p == NULL){
+//        return;
+//    }
+//
+//    //do for the left, then this, then the right
+//    recursiveInorder(p->left, func);
+//    func(p->info);
+//    recursiveInorder(p->right, func);
+//}
+//
+//template<class T>
+//void BinScoreTree<T>::Postorder(Func<T>& func) {
+//    //use the recursive function
+//    recursivePostorder(root, func);
+//}
+//
+//template<class T>
+//void BinScoreTree<T>::recursivePostorder(ScoreTreeNode<T>* p, Func<T>& func) {
+//    //check for NULL pointer
+//    if (p == NULL){
+//        return;
+//    }
+//
+//    //do for the left, then the right, then this
+//    recursivePostorder(p->left, func);
+//    recursivePostorder(p->right, func);
+//    func(p->info);
+//}
+//
+//template<class T>
+//void BinScoreTree<T>::Preorder(Func<T>& func) {
+//    //use the recursive function
+//    recursivePreorder(root, func);
+//}
+//
+//template<class T>
+//void BinScoreTree<T>::recursivePreorder(ScoreTreeNode<T>* p, Func<T>& func) {
+//    //check for NULL pointer
+//    if (p == NULL){
+//        return;
+//    }
+//
+//    //do for this, then the left, then the right,
+//    func(p->info);
+//
+//    recursivePreorder(p->left, func);
+//
+//    recursivePreorder(p->right, func);
+//}
+//
+//template<class T>
+//void BinScoreTree<T>::InverseOrder(Func<T>& func){
+//    //use the recursive function
+//    recursiveInverseOrder(root, func);
+//}
+//
+//template<class T>
+//void BinScoreTree<T>::recursiveInverseOrder(ScoreTreeNode<T>* p, Func<T>& func) {
+//    //check for NULL pointer
+//    if (p == NULL){
+//        return;
+//    }
+//
+//    //do for the right, then this, then the left
+//    recursiveInverseOrder(p->right, func);
+//    func(p->info);
+//    recursiveInverseOrder(p->left, func);
+//}
+//
+//template<class T>
+//void BinScoreTree<T>::switchNodes(ScoreTreeNode<T> *t1, ScoreTreeNode<T> *t2) {
+//    //switch left children
+//    if(t1->left != NULL){
+//        //update with removal and then switch
+//        updateParents(t1->left, false);
+//        t1->left->parent = t2;
+//
+//        //now update for the new parents
+//        updateParents(t1->left, true);
+//    }
+//    if(t2->left != NULL){
+//        //update with removal and then switch
+//        updateParents(t2->left, false);
+//        t2->left->parent = t1;
+//
+//        //now update for the new parents
+//        updateParents(t2->left, true);
+//    }
+//    funcsLib::swap(t1->left, t2->left);
+//
+//    //switch right children
+//    if(t1->right != NULL){
+//        //update with removal and then switch
+//        updateParents(t1->right, false);
+//        t1->right->parent = t2;
+//
+//        //now update for the new parents
+//        updateParents(t1->right, true);
+//    }
+//    if(t2->right != NULL){
+//        //update with removal and then switch
+//        updateParents(t2->right, false);
+//        t2->right->parent = t1;
+//
+//        //now update for the new parents
+//        updateParents(t2->right, true);
+//    }
+//    funcsLib::swap(t1->right, t2->right);
+//
+//
+//    //update with removal and then switch
+//    updateParents(t1, false);
+//    updateParents(t2, false);
+//    //switch parents
+//    if(t1->parent != NULL){
+//        if(t1->parent->right == t1){
+//            t1->parent->right = t2;
+//        } else{
+//            t1->parent->left = t2;
+//        }
+//    }
+//    if(t2->parent != NULL){
+//        if(t2->parent->right == t2){
+//            t2->parent->right = t1;
+//        } else{
+//            t2->parent->left = t1;
+//        }
+//    }
+//    funcsLib::swap(t1->parent, t2->parent);
+//    //now update for the new parents
+//    updateParents(t1, true);
+//    updateParents(t2, true);
+//
+//    //if one of them is the root, change the root
+//    if(root == t1){
+//        root = t2;
+//    } else if(root == t2){
+//        root = t1;
+//    }
+//}
 
 template<class T>
 ScoreTreeNode<T>* BinScoreTree<T>::findNode(T &info, ScoreTreeNode<T> *start){
@@ -559,70 +559,70 @@ ScoreTreeNode<T>* BinScoreTree<T>::insertInfo(T &info){
     return t;
 }
 
-template<class T>
-void BinScoreTree<T>::removeNode(ScoreTreeNode<T> *t){
-    //if the node is a leaf
-    if(t->right == NULL && t->left == NULL){
-        //update the parent's values before removal
-        updateParents(t, false);
-
-        //remove the node from it's parent, if it has one
-        if(t->parent != NULL){
-            if(t->parent->left == t){
-                t->parent->left = NULL;
-            } else {
-                t->parent->right = NULL;
-            }
-        } else {
-            root = NULL;
-        }
-
-        //delete the node
-        t->parent = NULL;
-        delete t;
-
-        return;
-    }
-
-    //if the node only has one child (if we got here we know that it has children)
-    if(t->left == NULL || t->right == NULL) {
-        //update the parent's values before removal
-        updateParents(t, false);
-
-        //save the child
-        ScoreTreeNode<T> *child = (t->left != NULL) ? t->left : t->right;
-
-        //replace the node with it's child in its parent, if it has one
-        if(t->parent != NULL){
-            if (t->parent->left == t) {
-                t->parent->left = child;
-            } else {
-                t->parent->right = child;
-            }
-        } else {
-            root = child;
-        }
-
-        child->parent = t->parent;
-
-        //delete the node
-        t->left = NULL;
-        t->right = NULL;
-        t->parent = NULL;
-        delete t;
-
-        return;
-    }
-
-    //if the node has 2 children (happens if we got here)
-    //find the following node
-    ScoreTreeNode<T>* t_follower = findMinNode(t->right);
-    //switch between them
-    switchNodes(t, t_follower);
-
-    //remove t again
-    removeNode(t);
-}
+//template<class T>
+//void BinScoreTree<T>::removeNode(ScoreTreeNode<T> *t){
+//    //if the node is a leaf
+//    if(t->right == NULL && t->left == NULL){
+//        //update the parent's values before removal
+//        updateParents(t, false);
+//
+//        //remove the node from it's parent, if it has one
+//        if(t->parent != NULL){
+//            if(t->parent->left == t){
+//                t->parent->left = NULL;
+//            } else {
+//                t->parent->right = NULL;
+//            }
+//        } else {
+//            root = NULL;
+//        }
+//
+//        //delete the node
+//        t->parent = NULL;
+//        delete t;
+//
+//        return;
+//    }
+//
+//    //if the node only has one child (if we got here we know that it has children)
+//    if(t->left == NULL || t->right == NULL) {
+//        //update the parent's values before removal
+//        updateParents(t, false);
+//
+//        //save the child
+//        ScoreTreeNode<T> *child = (t->left != NULL) ? t->left : t->right;
+//
+//        //replace the node with it's child in its parent, if it has one
+//        if(t->parent != NULL){
+//            if (t->parent->left == t) {
+//                t->parent->left = child;
+//            } else {
+//                t->parent->right = child;
+//            }
+//        } else {
+//            root = child;
+//        }
+//
+//        child->parent = t->parent;
+//
+//        //delete the node
+//        t->left = NULL;
+//        t->right = NULL;
+//        t->parent = NULL;
+//        delete t;
+//
+//        return;
+//    }
+//
+//    //if the node has 2 children (happens if we got here)
+//    //find the following node
+//    ScoreTreeNode<T>* t_follower = findMinNode(t->right);
+//    //switch between them
+//    switchNodes(t, t_follower);
+//
+//    //remove t again
+//    removeNode(t);
+//}
 
 
 #endif //DS_WET_4_BINSCORETREE_H
