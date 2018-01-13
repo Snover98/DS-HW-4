@@ -89,7 +89,7 @@ void MinHeap::delMin() {
 
     //resize if we have too much empty space
     if(num_of_elements<=(heap_size/4)) {
-        resizeHeap(heap_size/2);
+        resizeHeap(heap_size/2+1);
     }
 }
 
